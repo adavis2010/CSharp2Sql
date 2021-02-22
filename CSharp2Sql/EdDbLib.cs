@@ -11,6 +11,7 @@ namespace CSharp2Sql {
         public void ExecSelect() {
             var sql = "SELECT * From Student;";
             var cmd = new SqlCommand(sql, connection);
+            //use execute reader with SELECT statements
             var reader = cmd.ExecuteReader();
             while (reader.Read()) {
                 var id = Convert.ToInt32(reader["Id"]);
