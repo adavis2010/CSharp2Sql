@@ -10,15 +10,15 @@ namespace TestCSharp2Sql {
             var studentController = new StudentsController(conn);
             //call our get all method
             var students = studentController.GetAll();
-                foreach (var s in students) {
-                Console.WriteLine($"{s.Id}|{s.Firstname}|{s.Lastname}");
+            foreach (var s in students) {
+                Console.WriteLine($"{s.Id}|{s.Firstname}|{s.Lastname}|{s.Major}");
 
 
             }
             //closes connection
             conn.Disconnect();
 
-                //create instance of class
+            //create instance of class
 
             // var sql = new EdDbLib();
             //sql.Connect("EdDb");
@@ -29,14 +29,14 @@ namespace TestCSharp2Sql {
             //sql.Disconnect();
         }
 
-            //create instance of class
+        //create instance of class
 
-            //var sql = new EdDbLib();
-            //sql.Connect("EdDb");
-            //Console.WriteLine("Connected Successfully");
+        //var sql = new EdDbLib();
+        //sql.Connect("EdDb");
+        //Console.WriteLine("Connected Successfully");
 
-            //sql.ExecSelect();
-            //sql.Disconnect();
-        }
+        //sql.ExecSelect();
+        //sql.Disconnect();
     }
+}
 
