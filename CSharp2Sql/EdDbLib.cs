@@ -7,22 +7,23 @@ namespace CSharp2Sql {
 
         public SqlConnection connection { get; set; }
 
-        public void ExecSelect(object id, object lastname, object major, object majorid, object majorname) {
+        public void ExecSelect() {
             var sql = "SELECT * from Major;";
 
             var cmd = new SqlCommand(sql, connection);
 
             var reader = cmd.ExecuteReader();
             while (reader.Read()) {
-                int majorid = Convert.ToInt32(reader["majorid"]);
-                var majorname = reader["majorname"].ToString();
+                var id = Convert.ToInt32(reader["Id"]);
+                var minSAT = reader["minSAT"].ToString();
 
+                Console.WriteLine($"id={id},lastname={minSAT}");
             }
 
-            Console.WriteLine($"majorid={majorid}, majorname={majorname}");
 
-        }
+
             reader.Close();
+        }
 
         public void Connect(string database) {
             var connStr = $"server=localhost\\sqlexpress;" +
@@ -34,10 +35,18 @@ namespace CSharp2Sql {
             if (connection.State != System.Data.ConnectionState.Open) {
                 throw new Exception("Connection is not open!");
             }
+        }
 
             public void Disconnect() {
                 connection.Close();
+            connection.Open();
+            if (connection.State != System.Data.ConnectionState.Open) {
+                throw new Exception("Connection is not open!");
             }
+
+            }
+
+
 
 
 
@@ -86,7 +95,7 @@ namespace CSharp2Sql {
 
      */
         }
-    } }
+    } 
 
             
         

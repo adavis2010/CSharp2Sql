@@ -3,7 +3,7 @@ using CSharp2Sql;
 namespace TestCSharp2Sql {
     class Program {
         static void Main(string[] args) {
-            static void Main(string[] args) {
+            
 
 
                 //create instance of class
@@ -26,4 +26,4 @@ namespace TestCSharp2Sql {
             //sql.Disconnect();
         }
     }
-}
+
