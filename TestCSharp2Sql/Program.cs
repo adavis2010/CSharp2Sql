@@ -12,7 +12,8 @@ namespace TestCSharp2Sql {
                 sql.Connect("EdDb");
                 Console.WriteLine("Connected Successfully");
 
-                sql.ExecSelect();
+                //sql.ExecSelect();
+                sql.Class();
                 sql.Disconnect();
             }
 
