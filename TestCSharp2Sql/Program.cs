@@ -8,24 +8,28 @@ namespace TestCSharp2Sql {
             conn.Connect("EdDb");
             //passing connection into student controller class..below
             var studentController = new StudentsController(conn);
-            var student = studentController.GetByPk(1);
+            
             //create new student create
             var newStudent = new Student {
-                Id = 0, Firstname = "Sleepy Joe", Lastname = "Biden", Statecode = "DE",
-                SAT = 1300, GPA = 3.2m, Major = null
+                Id = 0, Firstname = " Joseph", Lastname = "Biden", Statecode = "DC",
+                SAT = 1350, GPA = 2.7m, Major = null
             };
-            
-            var success = studentController.Create(newStudent);
 
+            //var success = studentController.Create(newStudent);
+
+            newStudent.Id = 2;
+            var success = studentController.Change(newStudent);
+           
+            var student = studentController.GetByPk(2);
             Console.WriteLine($"{student.Id}|{student.Firstname}|{student.Lastname}");
 
             //call our get all method
-            var students = studentController.GetAll();
-            foreach (var s in students) {
-                Console.WriteLine($"{s.Id}|{s.Firstname}|{s.Lastname}|{s.Major}");
+           // var students = studentController.GetAll();
+           // foreach (var s in students) {
+               // Console.WriteLine($"{s.Id}|{s.Firstname}|{s.Lastname}|{s.Major}");
 
 
-            }
+           // }
             //closes connection
             conn.Disconnect();
 

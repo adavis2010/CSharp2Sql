@@ -7,6 +7,29 @@ using System.Text;
 namespace CSharp2Sql {
     public class StudentsController {
 
+        public bool Change(Student student) {
+            var sql = $"UPDATE Student Set " +
+                    " Firstname = @firstname, " +
+                    " Lastname = @lastname," +
+                    " StateCode = @statecode," +
+                    " SAT = @sat," +
+                    " GPA = @gpa" +
+                     //use where clause on update statement (@ signs are parameters)
+                     " Where Id = @id;";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            // sql statement:do parameters (two) first one is string @firstname and second is value student.Firstname
+            cmd.Parameters.AddWithValue("@firstname", student.Firstname);
+            cmd.Parameters.AddWithValue("@lastname", student.Lastname);
+            cmd.Parameters.AddWithValue("@statecode", student.Statecode);
+            cmd.Parameters.AddWithValue("@sat", student.SAT);
+            cmd.Parameters.AddWithValue("@gpa", student.GPA);
+            cmd.Parameters.AddWithValue("@id", student.Id);
+            var recsAffected = cmd.ExecuteNonQuery();
+            //how many rows will be changed
+            return (recsAffected == 1);
+
+        }
+
         //contructor is private so it can only be accessed through the class itself (StudentsController class) aka Encapsulation
         private Connection connection { get; set; }
         //method to pass in PK and retrieve one row
