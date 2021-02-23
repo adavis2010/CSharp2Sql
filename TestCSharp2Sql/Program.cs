@@ -9,6 +9,14 @@ namespace TestCSharp2Sql {
             //passing connection into student controller class..below
             var studentController = new StudentsController(conn);
             var student = studentController.GetByPk(1);
+            //create new student create
+            var newStudent = new Student {
+                Id = 0, Firstname = "Sleepy Joe", Lastname = "Biden", Statecode = "DE",
+                SAT = 1300, GPA = 3.2m, Major = null
+            };
+            
+            var success = studentController.Create(newStudent);
+
             Console.WriteLine($"{student.Id}|{student.Firstname}|{student.Lastname}");
 
             //call our get all method

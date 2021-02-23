@@ -10,10 +10,29 @@ namespace CSharp2Sql {
         //contructor is private so it can only be accessed through the class itself (StudentsController class) aka Encapsulation
         private Connection connection { get; set; }
         //method to pass in PK and retrieve one row
+
+        public bool Create(Student student) {
+            var sql = $"INSERT into Student " +
+                " (Firstname, Lastname, Statecode, SAT, GPA) " +
+                $" VALUES ('{student.Firstname}','{student.Lastname}',"+
+                $" '{student.Statecode}', {student.SAT}, {student.GPA});";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            //use execute non query when NOT using select statement (this is returning an integer) does not return a SQL data reader so we dont need a reader close 
+            var rowsAffected = cmd.ExecuteNonQuery();
+            //will return true or false
+            return (rowsAffected == 1);
+        }
+
+
+
+
+
         public Student GetByPk(int id) {
             //select statement
             var sql = $"SELECT * from Student Where id ={id};";
+
             var cmd = new SqlCommand(sql, connection.sqlconnection);
+            //make connection with reader with select statement
             var reader = cmd.ExecuteReader();
             var hasRow = reader.Read();
             //result will return one row or none at all!
