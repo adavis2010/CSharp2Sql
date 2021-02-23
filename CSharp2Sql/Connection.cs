@@ -6,25 +6,25 @@ using System.Text;
 namespace CSharp2Sql {
     public class Connection {
 
-        public SqlConnection connection { get; set; }
+        public SqlConnection sqlconnection { get; set; }
 
         public void Connect(string database) {
 
             var connsStr = $"server=localhost\\sqlexpress;" +
                             $"database={database};" +
                             $"trusted_connection=true;";
-            //create sql connection instance and pass in connection string
-            connection = new SqlConnection(connsStr);
-            //open connection
-            connection.Open();
-            //check connection state property
-            if (connection.State != System.Data.ConnectionState.Open) {
+            //create sql sqlconnection instance and pass in sqlconnection string
+            sqlconnection = new SqlConnection(connsStr);
+            //open sqlconnection
+            sqlconnection.Open();
+            //check sqlconnection state property
+            if (sqlconnection.State != System.Data.ConnectionState.Open) {
 
                 throw new Exception("Connection did not open!");
             }
         }
         public void Disconnect() {
-            connection.Close();
+            sqlconnection.Close();
         }
     }
 }
