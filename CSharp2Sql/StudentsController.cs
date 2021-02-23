@@ -9,6 +9,7 @@ namespace CSharp2Sql {
         //removing multiple items using an array[can insert as many numbers as I want in the brackets]
         public bool RemoveRange(params int[] ids) {
             var success = true;
+            //foreach loop
             foreach (var id in ids) {
                success &= Remove(id);
             }
