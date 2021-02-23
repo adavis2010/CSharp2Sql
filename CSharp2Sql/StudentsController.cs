@@ -11,7 +11,7 @@ namespace CSharp2Sql {
             var success = true;
             //foreach loop
             foreach (var id in ids) {
-               success &= Remove(id);
+                success &= Remove(id);
             }
             return success;
         }
