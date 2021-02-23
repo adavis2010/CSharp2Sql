@@ -56,10 +56,10 @@ namespace CSharp2Sql {
                 student.SAT =  Convert.ToInt32 (reader["SAT"]);
                 student.GPA = Convert.ToDecimal(reader["GPA"]);
                 //for null database in sql and C#
-                student.Major = null;
-                if(reader["Description"] != System.DBNull.Value) {
-                    student.Major = reader["Description"].ToString();
-                }
+                //student.Major = null;
+                //if(reader["Description"] != System.DBNull.Value) {
+                  //  student.Major = reader["Description"].ToString();
+                //}
                 //add student instance to our collection
                 students.Add(student);
             }
