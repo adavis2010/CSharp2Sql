@@ -6,6 +6,23 @@ using System.Text;
 
 namespace CSharp2Sql {
     public class StudentsController {
+        //removing multiple items using an array[can insert as many numbers as I want in the brackets]
+        public bool RemoveRange(params int[] ids) {
+            var success = true;
+            foreach (var id in ids) {
+               success &= Remove(id);
+            }
+            return success;
+        }
+        //Delete Function
+        public bool Remove(int id) {
+            var sql = $"DELETE from Student Where Id = @id;";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            cmd.Parameters.AddWithValue("@id", id);
+            var rowsAffected = cmd.ExecuteNonQuery();
+            return (rowsAffected == 1);
+
+        }
 
         public bool Change(Student student) {
             var sql = $"UPDATE Student Set " +
@@ -37,7 +54,7 @@ namespace CSharp2Sql {
         public bool Create(Student student) {
             var sql = $"INSERT into Student " +
                 " (Firstname, Lastname, Statecode, SAT, GPA) " +
-                $" VALUES ('{student.Firstname}','{student.Lastname}',"+
+                $" VALUES ('{student.Firstname}','{student.Lastname}'," +
                 $" '{student.Statecode}', {student.SAT}, {student.GPA});";
             var cmd = new SqlCommand(sql, connection.sqlconnection);
             //use execute non query when NOT using select statement (this is returning an integer) does not return a SQL data reader so we dont need a reader close 
@@ -69,9 +86,9 @@ namespace CSharp2Sql {
             student.Statecode = reader["Statecode"].ToString();
             student.SAT = Convert.ToInt32(reader["SAT"]);
             student.GPA = Convert.ToDecimal(reader["GPA"]);
-           // student.Major = null;
+            // student.Major = null;
             //if (reader["Description"] != System.DBNull.Value) {
-              //  student.Major = reader["Description"].ToString();
+            //  student.Major = reader["Description"].ToString();
             //}
             reader.Close();
             return student;
@@ -79,7 +96,7 @@ namespace CSharp2Sql {
         }
 
         //method to retrieve all students (GetAll)
-        public List <Student> GetAll() {
+        public List<Student> GetAll() {
             //select statement
             var sql = "SELECT * From Student s " +
                 " left join Major m on s.MajorId = m.Id " +
@@ -95,12 +112,12 @@ namespace CSharp2Sql {
                 student.Firstname = reader["Firstname"].ToString();
                 student.Lastname = reader["Lastname"].ToString();
                 student.Statecode = reader["Statecode"].ToString();
-                student.SAT =  Convert.ToInt32 (reader["SAT"]);
+                student.SAT = Convert.ToInt32(reader["SAT"]);
                 student.GPA = Convert.ToDecimal(reader["GPA"]);
                 //for null database in sql and C#
                 //student.Major = null;
                 //if(reader["Description"] != System.DBNull.Value) {
-                  //  student.Major = reader["Description"].ToString();
+                //  student.Major = reader["Description"].ToString();
                 //}
                 //add student instance to our collection
                 students.Add(student);

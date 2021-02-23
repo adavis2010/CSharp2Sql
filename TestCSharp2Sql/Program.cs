@@ -19,9 +19,12 @@ namespace TestCSharp2Sql {
 
             newStudent.Id = 2;
             var success = studentController.Change(newStudent);
-           
+           //change/update
             var student = studentController.GetByPk(2);
             Console.WriteLine($"{student.Id}|{student.Firstname}|{student.Lastname}");
+            //removing (delete) deleting student with id of number 2
+            success = studentController.Remove(2);
+                Console.WriteLine($"Remove worked {success}");
 
             //call our get all method
            // var students = studentController.GetAll();
