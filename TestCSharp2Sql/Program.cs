@@ -8,6 +8,9 @@ namespace TestCSharp2Sql {
             conn.Connect("EdDb");
             //passing connection into student controller class..below
             var studentController = new StudentsController(conn);
+            var student = studentController.GetByPk(1);
+            Console.WriteLine($"{student.Id}|{student.Firstname}|{student.Lastname}");
+
             //call our get all method
             var students = studentController.GetAll();
             foreach (var s in students) {

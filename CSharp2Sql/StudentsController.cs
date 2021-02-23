@@ -9,8 +9,34 @@ namespace CSharp2Sql {
 
         //contructor is private so it can only be accessed through the class itself (StudentsController class) aka Encapsulation
         private Connection connection { get; set; }
+        //method to pass in PK and retrieve one row
+        public Student GetByPk(int id) {
+            //select statement
+            var sql = $"SELECT * from Student Where id ={id};";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            var reader = cmd.ExecuteReader();
+            var hasRow = reader.Read();
+            //result will return one row or none at all!
+            if (!hasRow) {
+                return null;
+            }
+            var student = new Student();
+            student.Id = Convert.ToInt32(reader["Id"]);
+            student.Firstname = reader["Firstname"].ToString();
+            student.Lastname = reader["Lastname"].ToString();
+            student.Statecode = reader["Statecode"].ToString();
+            student.SAT = Convert.ToInt32(reader["SAT"]);
+            student.GPA = Convert.ToDecimal(reader["GPA"]);
+           // student.Major = null;
+            //if (reader["Description"] != System.DBNull.Value) {
+              //  student.Major = reader["Description"].ToString();
+            //}
+            reader.Close();
+            return student;
 
-        //method to retrieve all students
+        }
+
+        //method to retrieve all students (GetAll)
         public List <Student> GetAll() {
             //select statement
             var sql = "SELECT * From Student s " +
