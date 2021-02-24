@@ -3,15 +3,38 @@ using CSharp2Sql;
 namespace TestCSharp2Sql {
     class Program {
         static void Main(string[] args) {
+            var conn = new Connection();
+            conn.Connect("EdDb");
 
-            var sql = new Major();
-            sql.Connect("Major");
-            Console.WriteLine("Connected Successfully");
+            var ClassesController = new ClassesController(conn);
 
-            sql.ExecSelect();
-            sql.Disconnect();
+            var cls = ClassesController.GetbyPk(1);
+            Console.WriteLine($"{cls.Id}|{cls.code}|{cls.section}| {cls.InstructorId}");
+
         }
+    }
+}
+            //GetAll Call Method for Classes Controller Below
+           // var sql = new EdDbLib();
+           // sql.Connect("EdDb");
+
+           // var classes = ClassesController.GetAll();
+            //foreach (var c in classes) {
+               // Console.WriteLine($"{c.Id}|{c.Code}|{c.Section}|{c.Subject}| {c.InstructorId}");
+           // }
             
+
+
+            //var sql = new Major();
+            //sql.Connect("Major");
+            //Console.WriteLine("Connected Successfully");
+
+            //sql.ExecSelect();
+            //sql.Disconnect();
+
+            conn.Disconnect();
+        }
+
 
         //create instance of class
         //var conn = new Connection();
@@ -42,7 +65,7 @@ namespace TestCSharp2Sql {
         //call our get all method
         // var students = studentController.GetAll();
         // foreach (var s in students) {
-        // Console.WriteLine($"{s.Id}|{s.Firstname}|{s.Lastname}|{s.Major}");
+        //// Console.WriteLine($"{s.Id}|{s.Firstname}|{s.Lastname}|{s.Major}");
 
 
         // }
@@ -58,7 +81,7 @@ namespace TestCSharp2Sql {
             //sql.ExecSelect();
             //sql.Class();
             //sql.Disconnect();
-        }
+        
 
     //create instance of class
 
@@ -68,6 +91,7 @@ namespace TestCSharp2Sql {
 
     //sql.ExecSelect();
     //sql.Disconnect();
+}
 }
 
 
