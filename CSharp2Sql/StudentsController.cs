@@ -6,6 +6,10 @@ using System.Text;
 
 namespace CSharp2Sql {
     public class StudentsController {
+
+        //***** INITIAL CONNECTION contains the sql Connection that every class will need. It must be passed to the constructor with controller BELOW
+        private Connection connection { get; set; }
+
         //removing multiple items using an array[can insert as many numbers as I want in the brackets]
         public bool RemoveRange(params int[] ids) {
             var success = true;
@@ -49,7 +53,7 @@ namespace CSharp2Sql {
         }
 
         //contructor is private so it can only be accessed through the class itself (StudentsController class) aka Encapsulation
-        private Connection connection { get; set; }
+       
         //method to pass in PK and retrieve one row
 
         public bool Create(Student student) {
