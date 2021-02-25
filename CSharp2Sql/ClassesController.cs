@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace CSharp2Sql {
-    public class ClassesController { 
+    public class ClassesController {
 
         //property
         public Connection connection { get; set; }
@@ -13,6 +13,58 @@ namespace CSharp2Sql {
             this.connection = connection;
         }
 
+        //  UPDATE 
+        public bool Change(Class cls) {
+            var sql = $"UPDATE Class Set " +
+                    " Id = @id, " +
+                    " Code = @code," +
+                    " Subject = @subject," +
+                    " Section = @section," +
+                    " InstructorId = @instructorid" +
+                     //use where clause on update statement (@ signs are parameters)
+                     " Where Id = @id;";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            // sql statement:do parameters (two) first one is string @firstname and second is value class.id
+            cmd.Parameters.AddWithValue("@id", cls.Id);
+            cmd.Parameters.AddWithValue("@code", cls.Code);
+            cmd.Parameters.AddWithValue("@subject", cls.Subject);
+            cmd.Parameters.AddWithValue("@section", cls.Section);
+            cmd.Parameters.AddWithValue("@instructorid", cls.InstructorId);
+            var recsAffected = cmd.ExecuteNonQuery();
+            //how many rows will be changed
+            return (recsAffected == 1);
+
+        }
+
+
+        //  DELETE  
+        public bool Remove(int id) {
+            var sql = $"DELETE from Class Where Id = @id;";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            cmd.Parameters.AddWithValue("@id", id);
+            var rowsAffected = cmd.ExecuteNonQuery();
+            return (rowsAffected == 1);
+
+        }
+
+
+        // INSERT FUNCTION
+        public bool Create(Class cls) {
+            var sql = $"INSERT into Class " +
+                " (Id, Code, Subject, Section, InstructorId) " +
+                $" VALUES ('{cls.Id}','{cls.Code}'," +
+                $" '{cls.Subject}', {cls.Section}, {cls.InstructorId});";
+            var cmd = new SqlCommand(sql, connection.sqlconnection);
+            //use execute non query when NOT using select statement (this is returning an integer) does not return a SQL data reader so we dont need a reader close 
+            var rowsAffected = cmd.ExecuteNonQuery();
+            //will return true or false
+            return (rowsAffected == 1);
+        }
+    }
+}
+
+
+        //  GET ALL DATA FUNCTION
         /*public List<Class> GetAll() {
             var sql = "SELECT * from Class c";
             var classes = new List<Class>();
@@ -36,7 +88,7 @@ namespace CSharp2Sql {
 
         //GET BY PRIMARY KEY
 
-        public Class GetbyPk(int id) {
+        /*public Class GetbyPk(int id) {
             var sql = $"SELECT * from Class Where id ={id};";
             var cmd = new SqlCommand(sql, connection.sqlconnection);
             var reader = cmd.ExecuteReader();
@@ -64,7 +116,7 @@ namespace CSharp2Sql {
         }
 
         }
-
+        */
             //reader.Close();
             //return classes;
     

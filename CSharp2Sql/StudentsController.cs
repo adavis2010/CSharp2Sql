@@ -91,10 +91,7 @@ namespace CSharp2Sql {
             student.Statecode = reader["Statecode"].ToString();
             student.SAT = Convert.ToInt32(reader["SAT"]);
             student.GPA = Convert.ToDecimal(reader["GPA"]);
-            // student.Major = null;
-            //if (reader["Description"] != System.DBNull.Value) {
-            //  student.Major = reader["Description"].ToString();
-            //}
+
             reader.Close();
             return student;
 

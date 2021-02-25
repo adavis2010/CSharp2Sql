@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CSharp2Sql {
-    public class MajorsController(Connection connection) {}
-      this.connection = connection; { 
+namespace CSharp2Sql { }
+    //public class MajorsController(Connection connection) {}
+     // this.connection = connection; { 
 
 
 
